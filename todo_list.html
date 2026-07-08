@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Todo App</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    background:#1f1f1f;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    height:100vh;
+}
+
+h1{
+    color:#fff;
+    font-size:50px;
+    margin-bottom:25px;
+}
+
+.container{
+    width:360px;
+    background:#fff;
+    border-radius:20px;
+    padding:25px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.3);
+}
+
+.container h2{
+    margin-bottom:20px;
+}
+
+.input-box{
+    display:flex;
+    gap:10px;
+    margin-bottom:20px;
+}
+
+.input-box input{
+    flex:1;
+    padding:10px;
+    border:2px solid #ddd;
+    border-radius:8px;
+    outline:none;
+}
+
+.input-box button{
+    padding:10px 18px;
+    border:none;
+    background:#4CAF50;
+    color:white;
+    border-radius:8px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.input-box button:hover{
+    background:#388E3C;
+}
+
+ul{
+    list-style:none;
+}
+
+li{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin:12px 0;
+    font-size:18px;
+}
+
+.task{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.completed{
+    text-decoration:line-through;
+    color:gray;
+}
+
+.delete{
+    background:red;
+    color:white;
+    border:none;
+    padding:5px 10px;
+    border-radius:5px;
+    cursor:pointer;
+}
+</style>
+
+</head>
+<body>
+
+<h1>Todo App</h1>
+
+<div class="container">
+
+<h2>Todo</h2>
+
+<div class="input-box">
+<input type="text" id="todoInput" placeholder="Enter Todo">
+<button onclick="addTodo()">Add Todo</button>
+</div>
+
+<ul id="todoList">
+<li>
+<div class="task">
+<input type="checkbox">
+<span>Eat</span>
+</div>
+<button class="delete">Delete</button>
+</li>
+
+<li>
+<div class="task">
+<input type="checkbox">
+<span>Create</span>
+</div>
+<button class="delete">Delete</button>
+</li>
+
+<li>
+<div class="task">
+<input type="checkbox">
+<span>Sleep</span>
+</div>
+<button class="delete">Delete</button>
+</li>
+
+<li>
+<div class="task">
+<input type="checkbox">
+<span>Repeat</span>
+</div>
+<button class="delete">Delete</button>
+</li>
+
+</ul>
+
+</div>
+
+<script>
+
+const list=document.getElementById("todoList");
+
+function addTodo(){
+
+let input=document.getElementById("todoInput");
+
+if(input.value.trim()===""){
+    alert("Enter a Todo");
+    return;
+}
+
+let li=document.createElement("li");
+
+li.innerHTML=`
+<div class="task">
+<input type="checkbox">
+<span>${input.value}</span>
+</div>
+<button class="delete">Delete</button>
+`;
+
+list.appendChild(li);
+
+input.value="";
+
+addEvents(li);
+
+}
+
+function addEvents(li){
+
+const check=li.querySelector("input");
+
+const text=li.querySelector("span");
+
+const del=li.querySelector(".delete");
+
+check.addEventListener("change",function(){
+    text.classList.toggle("completed");
+});
+
+del.addEventListener("click",function(){
+    li.remove();
+});
+
+}
+
+document.querySelectorAll("#todoList li").forEach(addEvents);
+
+</script>
+
+</body>
+</html>
